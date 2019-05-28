@@ -54,6 +54,7 @@ function initMap(long, lat) {
 
   }else{
     layer = 'mapbox.streets'
+    document.getElementById('streets').checked = true
   }
 
 
