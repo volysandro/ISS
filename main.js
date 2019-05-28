@@ -29,7 +29,16 @@ function initMap(long, lat) {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ';
 
-  var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 2);
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    // some code..
+    var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 2);
+   }else{
+
+    var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 3);
+
+
+   }
+
 
   mymap.dragging.disable();
     mymap.touchZoom.disable();
