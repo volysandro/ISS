@@ -16,7 +16,13 @@ fetch('https://api.wheretheiss.at/v1/satellites/25544')
 });
 
 
+var satelliteIcon = L.icon({
+  iconUrl: 'satellite.png',
 
+  iconSize:     [38, 38], // size of the icon
+  iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
 
 function initMap(long, lat) {
@@ -30,7 +36,7 @@ function initMap(long, lat) {
     accessToken: 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ'
   }).addTo(mymap);
   
-  var marker = L.marker([lat, long]).addTo(mymap);
+  var marker = L.marker([lat, long], {icon: satelliteIcon}).addTo(mymap);
   marker.bindPopup("<b>Current ISS Position</b><br>").openPopup();
 
 
@@ -40,7 +46,7 @@ function initMap(long, lat) {
   function timeout(){
 
     update(mymap, marker);
-    setTimeout(timeout, 500);
+    setTimeout(timeout, 1000);
     
   }
   }
