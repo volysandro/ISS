@@ -27,14 +27,31 @@ var satelliteIcon = L.icon({
 
 function initMap(long, lat) {
 
+  mapboxgl.accessToken = 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ';
+
   var mymap = L.map('mapid').setView([lat, long], 2);
+
+  if(sessionStorage.getItem('layer')){
+    layer = 'mapbox.' + sessionStorage.getItem('layer')
+
+    document.getElementById(sessionStorage.getItem('layer')).checked = true
+
+
+
+  }else{
+    layer = 'mapbox.streets'
+  }
+
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: 'mapbox.streets',
+    id: layer,
     accessToken: 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ'
   }).addTo(mymap);
+
+      
+
 
   var marker = L.marker([lat, long], {
     icon: satelliteIcon
@@ -52,7 +69,6 @@ function initMap(long, lat) {
 
   }
 }
-
 
 
 
@@ -93,4 +109,22 @@ function update(map, pin) {
 
 
 
+}
+
+
+
+
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+ 
+function switchLayer(layer) {
+var layerId = layer.target.id;
+
+  sessionStorage.setItem('layer', layerId)
+  window.location.reload()
+
+}
+ 
+for (var i = 0; i < inputs.length; i++) {
+inputs[i].onclick = switchLayer;
 }
