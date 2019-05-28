@@ -29,7 +29,12 @@ function initMap(long, lat) {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ';
 
-  var mymap = L.map('mapid').setView([lat, long], 2);
+  var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 2);
+
+  mymap.dragging.disable();
+    mymap.touchZoom.disable();
+    mymap.doubleClickZoom.disable();
+    mymap.scrollWheelZoom.disable();
 
   if(sessionStorage.getItem('layer')){
     layer = 'mapbox.' + sessionStorage.getItem('layer')
