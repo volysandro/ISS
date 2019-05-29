@@ -29,30 +29,34 @@ function initMap(long, lat) {
 
   mapboxgl.accessToken = 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ';
 
-  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     // some code..
-    var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 2);
-   }else{
+    var mymap = L.map('mapid', {
+      zoomControl: false
+    }).setView([lat, long], 2);
+  } else {
 
-    var mymap = L.map('mapid', {zoomControl: false}).setView([lat, long], 3);
+    var mymap = L.map('mapid', {
+      zoomControl: false
+    }).setView([lat, long], 3);
 
 
-   }
+  }
 
 
   mymap.dragging.disable();
-    mymap.touchZoom.disable();
-    mymap.doubleClickZoom.disable();
-    mymap.scrollWheelZoom.disable();
+  mymap.touchZoom.disable();
+  mymap.doubleClickZoom.disable();
+  mymap.scrollWheelZoom.disable();
 
-  if(sessionStorage.getItem('layer')){
+  if (sessionStorage.getItem('layer')) {
     layer = 'mapbox.' + sessionStorage.getItem('layer')
 
     document.getElementById(sessionStorage.getItem('layer')).checked = true
 
 
 
-  }else{
+  } else {
     layer = 'mapbox.streets'
     document.getElementById('streets').checked = true
   }
@@ -65,7 +69,7 @@ function initMap(long, lat) {
     accessToken: 'pk.eyJ1Ijoidm9sZXJ5IiwiYSI6ImNqdzdqMXF4MjFjcTMzem1yemJ0eWtmN3cifQ.r1QFRyOcyaIXjiYSTS22eQ'
   }).addTo(mymap);
 
-      
+
 
 
   var marker = L.marker([lat, long], {
@@ -80,7 +84,7 @@ function initMap(long, lat) {
   function timeout() {
 
     update(mymap, marker);
-    setTimeout(timeout, 1000);
+    setTimeout(timeout, 3000);
 
   }
 }
@@ -131,15 +135,15 @@ function update(map, pin) {
 
 var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
- 
+
 function switchLayer(layer) {
-var layerId = layer.target.id;
+  var layerId = layer.target.id;
 
   sessionStorage.setItem('layer', layerId)
   window.location.reload()
 
 }
- 
+
 for (var i = 0; i < inputs.length; i++) {
-inputs[i].onclick = switchLayer;
+  inputs[i].onclick = switchLayer;
 }
